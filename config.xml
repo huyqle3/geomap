@@ -10,19 +10,13 @@
     <content src="index.html" />
     <plugin name="cordova-plugin-whitelist" version="1" />
     <access origin="*" />
+    <access origin="*.google.*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-
-    <preference name="splashscreen" value="splash" />
-    <preference name="splashscreendelay" value="3000" />
-
-    <!-- Apple Store compliance: do not backup our created files; still need to setMetadata() though -->
-    <preference name="iosPersistentFileLocation" value="Library" />
-    <preference name="BackupWebStorage" value="none" />
     
     <platform name="android">
         <allow-intent href="market:*" />
