@@ -70,9 +70,6 @@
         }
     },
     "installed_plugins": {
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.example.geomap"
-        },
         "cordova-plugin-device": {
             "PACKAGE_NAME": "com.example.geomap"
         },
@@ -86,6 +83,9 @@
             "PACKAGE_NAME": "com.example.geomap"
         },
         "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.example.geomap"
+        },
+        "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.example.geomap"
         }
     },

@@ -23,31 +23,15 @@
         <meta name="format-detection" content="telephone=no" />
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
-        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-        <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
-        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
-        <title>Google Maps Application</title>
+        <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="css/dashboard.css">
+        <link rel="stylesheet" href="css/font-awesome.min.css">
     </head>
-     <body class="ui-mobile-viewport ui-overlay-c">
-        <div data-role="page" tabindex="0" class="ui-page ui-body-c ui-page-active">
-        	<div data-role="header" class="ui-header ui-bar-a" role="banner">
-        		<h1 class="ui-title" role="heading" aria-level="1">Google Maps</h1>
-        	</div>
-        	<div data-role="content" class="ui-content" role="main">
-                <div id="mapsDiv">
-                    Map is loading ....
-                </div>
-                <a data-role="button" href="#" id="updateLocationBtn">Update Location</a>
-                <a data-role="button" href="#" id="watchLocationBtn">Watch Location</a>
-                <a data-role="button" href="#" id="stopWatchLocationBtn">Stop Watch</a>
-        	</div>
-        </div>
+     <body class="container">
+        <h2 class="title">Geo</h2>
+        <a style="background-color: #2D88E3;" class="button" href="currentmap.html"><span>&nbsp;<i class="fa fa-map-marker"></i> &nbsp;Map</span></a>
+        <a style="background-color: #2D88E3;" class="button" href="openmap.html"><span>&nbsp;<i class="fa fa-microphone"></i> &nbsp;Dispatch</span></a>
+        <a style="background-color: #2D88E3;" class="button" href="skeleton.html"><span>&nbsp;<i class="fa fa-desktop"></i> &nbsp;Office</span></a>
         <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            app.initialize();
-        </script>
     </body>
 </html>
