@@ -1,94 +1,140 @@
 var myLatlng;
 var mapOptions;
 var map;
+//var projects = "https://api.myjson.com/bins/2735w";
+var projects = "https://api.myjson.com/bins/33gac";
+var employees = "https://api.myjson.com/bins/39vro";
 var sampleAPI = "https://dl.dropboxusercontent.com/u/72466829/walmart.json";
 var marker;
 var contentString;
 var infowindow;
-var url = 'http://server-api.dquid.io/api/v1/data';
+var img12 ='assets/img/icons/flappybird.png';
 
 function drawMap() {
-    myLatlng = new google.maps.LatLng(36.334145, -94.148036);
+    myLatlng = new google.maps.LatLng(37.7833, -122.4167);
     console.log(myLatlng);
     mapOptions = {
-        zoom: 5,
+        zoom: 10,
         center: myLatlng
     };
     map = new google.maps.Map(document.getElementById('mapsDiv'), mapOptions);
+    
+    var pinColors = ["E63222", "FFFC33", "31D670"];
 
-    $.getJSON( sampleAPI, {
+    $.getJSON( projects, {
         tags: "mount rainier",
         tagmode: "any",
         format: "json"
     })
     .done(function( data ) {
         for (var i = 0; i < data.length; i++) {
-            myLatlng = new google.maps.LatLng(data[i].latitude, data[i].longitude);
+
+            randomColor = pinColors[Math.floor(Math.random()*pinColors.length)];
+            var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + randomColor,
+                        new google.maps.Size(21, 34),
+                        new google.maps.Point(0,0),
+                        new google.maps.Point(10, 34));
+
+            myLatlng = new google.maps.LatLng(data[i].lat, data[i].lon);
 
             marker = new google.maps.Marker({
                 position: myLatlng,
                 map: map,
-                title: data[i].storenum
+                icon: pinImage,
+                title: data[i].id 
+
             });
             
             infowindow = new google.maps.InfoWindow({
                 content: contentString
             });
 
-            google.maps.event.addListener(marker, 'click', (function(marker, streetaddr, strcity, strstate, zipcode, storenum){
+            google.maps.event.addListener(marker, 'click', (function(marker, id, name){
                 return function() {
-                    var sn;
-                    switch (storenum % 3) {
-                        case 0: sn = "115";
-                        break;
-                        case 1: sn = "116";
-                        break;
-                        case 2: sn = "117";
-                        break;
-                    }
-                    var serialNumber = "0000000000000" + sn;
-                    var url3 = url + '/' + serialNumber + '/latest';
-                    function callBack(message) {
+                    contentString = 
+                        '<div id="content"><p>'+
+                            name + '</p>' +
+                            '<img style="width: 40%; height: 40%;" src="http://loremflickr.com/320/240/rooms"/>' +
+                            '<p>Chat with:' + name + '<a href="#chatwin" >'+
+                            ' Chat</a> <a href="#clientwin" >'+
+                            'Forward to Client</a>' + '<span class="fa fa-microphone"></span>' +
+                            '<div id="chat"></div><div><input type="text" id="message"><input type="button" value="send" id="send" onclick="sendClick();"></div>' +
+                            '</div>'+
+                        '</div>';
+                      
+                marker.setAnimation(google.maps.Animation.DROP);
+                var div = document.createElement('div');
+                div.innerHTML = contentString;
+                infowindow.setContent(div);
+//                    infowindow.setContent(contentString);
+                    infowindow.open(map, marker);
+//                    map.setCenter(e.latLng);
+                        '</div>';
+
+                    infowindow.setContent(contentString);
+                    infowindow.open(map, marker);
+                }
+            })(marker, data[i].id, data[i].name));
+        }
+    });
+
+    $.getJSON( employees, {
+            tags: "mount rainier",
+            tagmode: "any",
+            format: "json"
+        })
+        .done(function( data ) {
+            for (var i = 0; i < data.length; i++) {
+
+                /*
+                var personImage = new google.maps.MarkerImage("http://maps.google.com/mapfiles/kml/shapes/man.png",
+                        new google.maps.Size(11, 13),
+                        new google.maps.Point(0,0),
+                        new google.maps.Point(10, 34));
+                */
+
+                myLatlng = new google.maps.LatLng(data[i].lat, data[i].lon);
+
+                marker = new google.maps.Marker({
+                    position: myLatlng,
+                    map: map,
+                    icon: "http://maps.google.com/mapfiles/kml/shapes/man.png",
+                    title: data[i].id 
+
+                });
+                
+                infowindow = new google.maps.InfoWindow({
+                    content: contentString
+                });
+
+                google.maps.event.addListener(marker, 'click', (function(marker, id, name){
+                    return function() {
                         contentString = 
-                            '<div id="content">'+
-                                '<div id="siteNotice">'+ '</div>'+
-                                '<h1 id="firstHeading" class="firstHeading">Store' + storenum + '</h1>'+
-                                '<div id="bodyContent">'+
-                                    '<p><b>Street Address:</b></br>' + 
-                                    streetaddr + "</br>" + 
-                                    strcity + ", " + strstate + " " + zipcode +
-                                    '</p>'+
-                                    '<p>' + message + '</p>' +
-                                    '<p>Chart with us: <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-                                    'https:/baytekhackandplay.com</a>'+
+                            '<div id="content"><p>'+
+                                name + '</p>' +
+                                '<img style="width: 40%; height: 40%;" src="http://loremflickr.com/320/240/rooms"/>' +
+                                '<p>Chat with:' + name + '<a href="#chatwin" >'+
+                                ' Chat</a> <a href="#clientwin" >'+
+                                'Forward to Client</a>' + '<span class="fa fa-microphone"></span>' +
+                                '<div id="chat"></div><div><input type="text" id="message"><input type="button" value="send" id="send" onclick="sendClick();"></div>' +
                                 '</div>'+
+                            '</div>';
+                          
+                    marker.setAnimation(google.maps.Animation.DROP);
+                    var div = document.createElement('div');
+                    div.innerHTML = contentString;
+                    infowindow.setContent(div);
+    //                    infowindow.setContent(contentString);
+                        infowindow.open(map, marker);
+    //                    map.setCenter(e.latLng);
                             '</div>';
 
                         infowindow.setContent(contentString);
                         infowindow.open(map, marker);
                     }
-
-                    $.ajax({
-                        url: url3,
-                        statusCode: {
-                            200: function(response) {
-                                var prettyPrintResponse = JSON.stringify(response,null,2);
-                                prettyPrintResponse = '200, OK \n\n' + prettyPrintResponse;
-                                callBack(prettyPrintResponse);
-                            },
-                            400: function() {
-                                callBack("400, Bad Request");
-                            },
-                            404: function() {
-                                callBack("404, Not Found");
-                            },
-                        }
-                    });
-                };
-            })(marker, data[i].streetaddr, data[i].strcity, data[i].strstate, data[i].zipcode,
-                 data[i].storenum ));
-        }
-    });
+                })(marker, data[i].id, data[i].name));
+            }
+        });
 }
 
 function positionUpdate(pos) {
@@ -159,3 +205,5 @@ var app = {
         $('#stopWatchLocationBtn').click(stopWatch);
     }
 };
+
+drawMap();

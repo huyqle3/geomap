@@ -2,8 +2,8 @@ var myLatlng;
 var mapOptions;
 var map;
 //var projects = "https://api.myjson.com/bins/2735w";
-var projects = "https://api.myjson.com/bins/33gac";
-var employees = "https://api.myjson.com/bins/39vro";
+var projects = "https://api.myjson.com/bins/3zlp0";
+var employees = "https://api.myjson.com/bins/2uvn8";
 var sampleAPI = "https://dl.dropboxusercontent.com/u/72466829/walmart.json";
 var marker;
 var contentString;
@@ -29,18 +29,12 @@ function drawMap() {
     .done(function( data ) {
         for (var i = 0; i < data.length; i++) {
 
-            randomColor = pinColors[Math.floor(Math.random()*pinColors.length)];
-            var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + randomColor,
-                        new google.maps.Size(21, 34),
-                        new google.maps.Point(0,0),
-                        new google.maps.Point(10, 34));
-
             myLatlng = new google.maps.LatLng(data[i].lat, data[i].lon);
 
             marker = new google.maps.Marker({
                 position: myLatlng,
                 map: map,
-                icon: pinImage,
+                icon: "http://maps.google.com/mapfiles/kml/shapes/post_office.png",
                 title: data[i].id 
 
             });
